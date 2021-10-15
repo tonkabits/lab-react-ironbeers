@@ -1,11 +1,12 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import data from './data.json';
 import Navbar from './components/Navbar';
 import CountryList from './components/CountryList';
 import CountryDetail from './components/CountryDetail';
 import countryData from './data.json'
+
 
 export default class App extends React.Component {
 
@@ -40,7 +41,16 @@ updateSearchTerm = event => {
              />
             </div>
             <div className="w-2/3">
-              <CountryDetail/>
+     
+              <Route path="/:countryCode"
+              render={(props) => 
+                <CountryDetail 
+                  countryData={countryData}
+                  {...props}
+                />
+              }
+              />
+       
             </div>
           </div>
         </Router>
