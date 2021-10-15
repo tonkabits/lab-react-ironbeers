@@ -1,25 +1,50 @@
-import logo from './logo.svg';
+import React from 'react';
 import './App.css';
+import { BrowserRouter as Router } from 'react-router-dom';
+import data from './data.json';
+import Navbar from './components/Navbar';
+import CountryList from './components/CountryList';
+import CountryDetail from './components/CountryDetail';
+import countryData from './data.json'
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export default class App extends React.Component {
+
+
+state = {
+
+
+
 }
 
-export default App;
+
+
+updateSearchTerm = event => {
+  console.log('updated')
+  this.setState({
+    searchInput: event.target.value
+  })
+
+  return this.filterFoodList()
+}
+
+
+  render() {
+    return (
+      <div className="App">
+        <Router>
+          <Navbar/>
+          <div className="w-full flex">
+            <div className="w-1/3 h-screen overflow-scroll bg-gray-50">
+             <CountryList className=""
+                countryData={countryData}
+             />
+            </div>
+            <div className="w-2/3">
+              <CountryDetail/>
+            </div>
+          </div>
+        </Router>
+      </div>
+    );
+  }
+}

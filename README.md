@@ -1,12 +1,14 @@
 ![logo_ironhack_blue 7](https://user-images.githubusercontent.com/23629340/40541063-a07a0a8a-601a-11e8-91b5-2f13e4e6b441.png)
 
-# LAB | React WikiCountries
+# LAB | React IronNutrition
 
 ## Introduction
 
-After spending too much time on GitHub, you found a [JSON database of countries](https://raw.githubusercontent.com/mledoze/countries/master/countries.json) and you decide to use it to create your Wikipedia for countries!
+You just realized that since the beginning of the bootcamp, your diet is not healthy and it may have an impact on your health (and productivity), now and in the long term.
 
-![](https://media.giphy.com/media/fdUHHKI36bTVduRDfB/giphy.gif)
+To take care of the food you eat, you decided to create a nutrition app that will track everything you eat!
+
+![](https://media.giphy.com/media/fH0dyqpPJRvTbiF5rJ/giphy.gif)
 
 ## Setup
 
@@ -14,7 +16,7 @@ After spending too much time on GitHub, you found a [JSON database of countries]
 - Clone this repo
 
 ```shell
-$ cd lab-wiki-countries
+$ cd lab-react-ironnutrution
 $ npm install
 $ npm start
 ```
@@ -29,124 +31,116 @@ $ npm start
   git push origin master
   ```
 
-- Create Pull Request so your TAs can check up on your work.
+- Create Pull Request so your TAs can check up your work.
 
 ## Instructions
 
-### Iteration 0 | React Router installation
+### Iteration 0 | Setup
 
-Don't forget to install the React Router:
+#### Bulma installation
 
-```shell
-$ npm install react-router-dom
-```
-
-And setup the router in your `src/index.js` file:
-
-```jsx
-// src/index.js
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-
-import { BrowserRouter } from 'react-router-dom';
-
-ReactDOM.render(
-  <BrowserRouter>
-    <App />
-  </BrowserRouter>,
-  document.getElementById('root')
-);
-
-// comment skipped to stay organized
-reportWebVitals();
-```
-
-### Bootstrap installation
-
-We will use [Bootstrap V4](https://getbootstrap.com/) for the design :+1:
+We will use [Bulma](https://bulma.io/) for the design :)
 
 ```sh
-$ npm install bootstrap
+$ npm install bulma --save
 ```
 
 ```javascript
-// src/index.js
-import 'bootstrap/dist/css/bootstrap.css';
+import 'bulma/css/bulma.css';
 ```
 
-## Instructions
+#### Import a JSON
 
-### Iteration 1.1 | Create components
+Import the foods from the `foods.json`.
 
-In this iteration, we will focus on the general layout. Before you start, inside the `src` folder, create the `components` folder. There you will create at least 3 components:
+```js
+import foods from './foods.json';
+```
 
-- `Navbar`: Displaying the basic navbar with the LAB name
+#### About the design
 
-- `CountriesList`: Displays the list of links with the country names. Each link should be a `react-router-dom` `Link` which we will use to <u>send</u> the country code (`cca3`) via the URL.
+If you struggle with the design, you can find a static example of what is expected inside file `style-guides.html`.
 
-- `CountryDetails`: Is the component that we will render via the `react-router-dom`'s `Route` and will be <u>receiving</u> the country code (`cca3`) via the URL.
+So let's start!
 
-  This is actually the id of the country (example: `/ESP` for Spain, `/FRA` for France).
+### Iteration 1 | Create `FoodBox` component
 
-To help you with the structure of the components, we gave you an example of a page inside `example.html`.
+Create a `FoodBox` component that takes at least `food` as a prop and displays a box with all the information about an ingredient.
 
-If you want to style it, refresh your memory on Bootstrap in the [docs](https://getbootstrap.com/docs/4.0) or check out how we approached styling in the `example.html`.
+You can use this HTML snippet to display properly the `FoodBox`:
 
-### Iteration 1.2 | Navbar component
-
-The simplest way to define a component in React is to write a JavaScript function aka function component. The navbar should be displaying the title of the LAB - WikiCountries.
-
-### Iteration 1.3 | CountriesList component
-
-This component should render a list of links that are used to trigger the browser URL change via the `react-router-dom` `Link`. Click on a `Link` component will then activate the corresponding `Route` showing the country details component.
-
-### Iteration 1.4 | CountryDetails component and `Route` setup
-
-Now when our list of countries is ready, we should create the `CountryDetails` component that will be displaying the details of a particular country of a link that we clicked. This component should be dynamically displayed/rendered by the `react-router-dom` `Route`.
-
-In this case, you should use only 1 `<Route />` for `CountryDetails` component.
-
-Components rendered by the `Route` receive special `props` (`match`, `location` and `history`) passed by the `react-router-dom`. We can use this props to obtain the information coming from the browser's URL bar, for example, the `cca3` code of the country. For a reminder on how to create a dynamic `Route` that displays a component feel free to check [this example](https://reactrouter.com/web/api/Route/route-props).
-
-**NOTE:** For Windows users, there is no emoji for the `flag`. Instead, you can rely on these links:
-
-- France: https://www.countryflags.io/fr/flat/64.png
-- Germany: https://www.countryflags.io/de/flat/64.png
-- etc.
-
-### Iteration 2 | Linking it all together
-
-Once done creating the components the structure of elements that your `App.js` will render should look somewhat like this:
-
-```jsx
-<div className="App">
-  <Navbar />
-
-  <div className="container">
-    <div className="row">
-      <CountriesList countries={countries} />
-      {/* React Router Route rendering the CountryDetails should go here */}
+```html
+<div className="box">
+  <article className="media">
+    <div className="media-left">
+      <figure className="image is-64x64">
+        <img src="https://i.imgur.com/eTmWoAN.png" />
+      </figure>
     </div>
-  </div>
+    <div className="media-content">
+      <div className="content">
+        <p>
+          <strong>Pizza</strong> <br />
+          <small>400 cal</small>
+        </p>
+      </div>
+    </div>
+    <div className="media-right">
+      <div className="field has-addons">
+        <div className="control">
+          <input className="input" type="number" value="1" />
+        </div>
+        <div className="control">
+          <button className="button is-info">
+            +
+          </button>
+        </div>
+      </div>
+    </div>
+  </article>
 </div>
 ```
 
-### Iteration 3 | Set the state when the component mounts
+![](https://i.imgur.com/bY9i5Rw.png)
 
-Our `App.js` application should have its own state holding one property `countries` holding the data coming from the `countries.json` file.
+### Iteration 2 | Display food
 
-The state should be set only once the component is rendered to the DOM, using the lifecycle method `componentDidMount()` .
+In your `App` component (your main component), display as many `FoodBox` as elements inside the variable `foods`.
 
-### Bonus | Fetch the data from an API
+![](https://i.imgur.com/3TVQJDO.png)
 
-Instead of relying on the static data coming from a `json` file, let's do something more interesting and get out the data from an actual API.
+### Iteration 3 | Add new food
 
-Let's make a `GET` request to the URL [https://restcountries.eu/#api-endpoints-all](https://restcountries.eu/#api-endpoints-all) and use the data returned from the response as the list of the countries. You can use either `fetch` or `axios` to make the request. You may want to check the lifecycle method [`componentDidMount`](https://reactjs.org/docs/react-component.html#componentdidmount).
+Create a button to add new foods.
 
-The request should happen first thing when the application loads, therefore think about when and from where we should make the request to the API.
+When a user clicks the button, a form will appear with fields for a name, number of calories, and an image.
+
+When the user clicks submit, the food will be added to the list.
+
+The form should disappear when the user clicks the submit button.
+
+### Iteration 4 | Implement search bar
+
+Create a `Search` component to perform a search that updates the list of all meal.
+
+![](https://i.imgur.com/XaOpAx8.png)
+
+### Iteration 5 | Create add buttons
+
+On your `FoodBox`, you have an input an "+" button. Use them so that when a user clicks on the button, it adds them on a list on the right called "_Today's foods_".
+
+You will also need to display the total amount of calories at the bottom of the list as a recap.
+
+![](https://media.giphy.com/media/fH0dyqpPJRvTbiF5rJ/giphy.gif)
+
+If you don't remember how to create responsive columns with Bulma, you can check the [documentation](https://bulma.io/documentation/columns/basics/).
+
+### Iteration 6 | Bonus | Group ingredients
+
+You made an awesome application, but you have found a little problem in the UX. For example, if you click twice on "Pizza", it will display 2 lines "_1 Pizza = 400 cal_" instead of 1 line "_2 Pizza = 800 cal_". Fix that problem.
+
+### Iteration 7 | Bonus | Allow the user to remove an ingredient
+
+On the "_Today's food_", add a trash icon to let users removing one of their items.
 
 Happy coding! :heart:
